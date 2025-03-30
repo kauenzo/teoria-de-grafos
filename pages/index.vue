@@ -1,6 +1,8 @@
 <script setup lang="ts">
-const matriz = useGrafoMatriz()
-const lista = useGrafoLista()
+import GrafoMatriz from '~/components/GrafoMatriz.vue'
+
+const { exibirMatriz, grauMaximo, showInScreen } = useGrafoMatriz()
+const { grafo, instanciarGrafo } = useGrafoLista()
 
 const { isDarkTheme, toggleDarkMode } = useDarkTheme()
 </script>
@@ -10,23 +12,25 @@ const { isDarkTheme, toggleDarkMode } = useDarkTheme()
     <!-- botoes -->
     <div class="gap-2 flex px-3 w-full">
       <Button
-        @click="matriz.exibirMatriz"
-        label="Console matriz"
+        @click="exibirMatriz"
+        label="Exibir matriz"
       />
+
       <Button
-        @click="matriz.grauMaximo"
+        @click="grauMaximo"
         label="Console grau maximo"
       />
+
       <Button
-        @click="lista.instanciarGrafo"
+        @click="instanciarGrafo"
         label="Instanciar grafo por lista"
       />
       <Button
-        @click="lista.grafo.mostraLista"
+        @click="grafo.mostraLista"
         label="Exibir lista"
       />
       <Button
-        @click="lista.grafo.grauMaximoVertice"
+        @click="grafo.grauMaximoVertice"
         label="Grau maximo lista"
       />
     </div>
@@ -36,6 +40,29 @@ const { isDarkTheme, toggleDarkMode } = useDarkTheme()
         :label="isDarkTheme ? 'Tema claro' : 'Tema escuro'"
       />
     </div>
+
+    <div
+      v-show="showInScreen.maiorGrau"
+      class="w-full flex flex-col justify-center items-center"
+    >
+      {{ showInScreen.maiorGrau }}
+    </div>
+
+    <div
+      v-show="showInScreen.matriz"
+      class="w-full flex flex-col justify-center items-center"
+    >
+      <div>Matriz do grafo registrado</div>
+
+      <GrafoMatriz />
+      <Button
+        @click="() => (showInScreen.matriz = false)"
+        label="Ocultar matriz"
+        :v-if="showInScreen.matriz"
+      />
+    </div>
+
+    <GrafoLista />
   </div>
 </template>
 

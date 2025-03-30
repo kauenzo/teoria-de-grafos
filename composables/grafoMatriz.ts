@@ -1,7 +1,14 @@
 import { grafoMatriz } from '~/constans/grafos'
 
 export const useGrafoMatriz = () => {
-  const exibirMatriz = () => {
+  const showInScreen = reactive({
+    matriz: false,
+    maiorGrau: '',
+  })
+
+  const exibirMatrizNoConsole = () => {
+    showInScreen.matriz = true
+    console.log(showInScreen.matriz)
     const TAMANHO: number = grafoMatriz.length
 
     for (let linha = 0; linha < TAMANHO; linha++) {
@@ -37,14 +44,21 @@ export const useGrafoMatriz = () => {
           if (grauLinha > maiorGrau.grau) {
             maiorGrau.no = linha
             maiorGrau.grau = grauLinha
+
             console.log(`O nó ${linha} agora tem o maior grau: ${grauLinha}`)
           }
         }
       }
     }
     console.log(maiorGrau)
+    showInScreen.maiorGrau = `O vertice ${maiorGrau.no} tem o maior grau: ${maiorGrau.grau}`
   }
 
-  return { exibirMatriz, grauMaximo }
+  return {
+    exibirMatriz: exibirMatrizNoConsole,
+    grauMaximo,
+
+    showInScreen,
+  }
 }
 

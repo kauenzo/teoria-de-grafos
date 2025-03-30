@@ -1,10 +1,13 @@
 import { grafoLista } from '~/constans/grafos'
 
 export const useGrafoLista = () => {
+  const showMaiorGrauLista = ref<string>('') // TODO:nao ta funcionando
   class Grafo {
     vertices: Record<string | number, Record<string | number, any>> = {}
     constructor() {
       this.vertices = {}
+      this.mostraLista = this.mostraLista.bind(this)
+      this.grauMaximoVertice = this.grauMaximoVertice.bind(this)
     }
 
     adicionarVertice(vertice: string) {
@@ -19,12 +22,17 @@ export const useGrafoLista = () => {
       this.vertices[origem][destino] = true
     }
     mostraLista() {
-      console.log(this.vertices)
-      for (let vertice in this.vertices) {
-        let vizinhos = Object.keys(this.vertices[vertice])
-        console.log(vertice, vizinhos)
+      try {
+        console.log(grafo)
+        console.log(this)
+        for (let vertice in this.vertices) {
+          let vizinhos = Object.keys(this.vertices[vertice])
+          console.log(vertice, vizinhos)
+        }
+        return 'Lista adjacente'
+      } catch (error) {
+        console.error(error)
       }
-      return 'Lista adjacente'
     }
 
     grauMaximoVertice() {
@@ -38,11 +46,14 @@ export const useGrafoLista = () => {
         }
         console.log(`Vertice ${vertice} tem grau ${grau}`)
       }
-      console.log(
-        `O vertice ${verticeMaiorGrau} tem o maior grau: ${maiorGrau}`
-      )
+      const msg = `O vertice ${verticeMaiorGrau} tem o maior grau: ${maiorGrau}`
+
+      showMaiorGrauLista.value = msg
+      console.log(showMaiorGrauLista.value)
     }
   }
+
+  const grafo = new Grafo()
 
   const instanciarGrafo = () => {
     const TAMANHO = 10
@@ -64,7 +75,7 @@ export const useGrafoLista = () => {
     console.log('Grafo instanciado:', grafo)
   }
 
-  const grafo = new Grafo()
-  return { grafo, instanciarGrafo }
+  instanciarGrafo()
+  return { grafo, instanciarGrafo, showMaiorGrauLista }
 }
 
