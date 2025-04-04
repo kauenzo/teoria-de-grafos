@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GrafoMatriz from '~/components/GrafoMatriz.vue'
+// import GrafoMatriz from '~/components/GrafoMatriz.vue'
 
 const { exibirMatriz, grauMaximo, showInScreen } = useGrafoMatriz()
 const { grafo, instanciarGrafo } = useGrafoLista()
@@ -34,13 +34,11 @@ const { isDarkTheme, toggleDarkMode } = useDarkTheme()
         label="Grau maximo lista"
       />
     </div>
-    <div class="card flex justify-center dark:bg-green-400">
+    <!-- <div class="card flex justify-center">
       <Button
         @click="toggleDarkMode"
         :label="isDarkTheme ? 'Tema claro' : 'Tema escuro'"
       />
-    </div>
-
     <div
       v-show="showInScreen.maiorGrau"
       class="w-full flex flex-col justify-center items-center"
@@ -62,7 +60,7 @@ const { isDarkTheme, toggleDarkMode } = useDarkTheme()
       />
     </div>
 
-    <GrafoLista />
+    <GrafoLista /> -->
   </div>
 </template>
 
